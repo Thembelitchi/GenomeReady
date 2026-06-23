@@ -1,0 +1,6 @@
+{
+  "name": "GenomeReady",
+  "description": "GenomeReady APBA/ABI Bring Your Own Data (BYOD) Hackathon Companion Platform — a multi-phase digital companion that empowers participants with data QC, automated triage, reproducible GWAS/Genomic Selection/Population Structure pipelines, learning modules, mentor ticket assistance, and publication trackers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

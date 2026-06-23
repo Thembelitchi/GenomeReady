@@ -1,0 +1,350 @@
+{
+  "users": [
+    {
+      "id": "amina_e",
+      "email": "amina@eiardata.org",
+      "name": "Amina Edossa",
+      "role": "participant",
+      "institution": "Ethiopian Institute of Agricultural Research (EIAR)",
+      "country": "Ethiopia",
+      "cropFocus": "Durum Wheat Drought Tolerance",
+      "rLevel": "Advanced",
+      "pythonLevel": "Beginner",
+      "unixLevel": "Intermediate",
+      "readinessScore": 100,
+      "createdAt": "2026-06-23T21:06:36.188Z"
+    },
+    {
+      "id": "john_k",
+      "email": "john.k@iita.org",
+      "name": "John Kamau",
+      "role": "participant",
+      "institution": "International Institute of Tropical Agriculture (IITA)",
+      "country": "Kenya",
+      "cropFocus": "Cassava Mosaic Disease (CMD) Resistance",
+      "rLevel": "Intermediate",
+      "pythonLevel": "Beginner",
+      "unixLevel": "Beginner",
+      "readinessScore": 90,
+      "createdAt": "2026-06-23T21:06:36.188Z"
+    },
+    {
+      "id": "sarah_m",
+      "email": "sarah.m@icrisat.org",
+      "name": "Sarah Mwangi",
+      "role": "participant",
+      "institution": "ICRISAT",
+      "country": "Nairobi",
+      "cropFocus": "Chickpea Heat Resilience",
+      "rLevel": "Advanced",
+      "pythonLevel": "Intermediate",
+      "unixLevel": "Advanced",
+      "readinessScore": 92,
+      "createdAt": "2026-06-23T21:06:36.188Z"
+    },
+    {
+      "id": "osei_abi",
+      "email": "osei@abi-mentor.org",
+      "name": "Dr. Osei Koffi",
+      "role": "mentor",
+      "institution": "Alliance for a Green Revolution (AGRA) / ABI",
+      "country": "Ghana",
+      "cropFocus": "Genomics & Cowpea Breeding",
+      "rLevel": "Advanced",
+      "pythonLevel": "Advanced",
+      "unixLevel": "Advanced",
+      "readinessScore": 100,
+      "createdAt": "2026-06-23T21:06:36.188Z"
+    },
+    {
+      "id": "organizer_abi",
+      "email": "organizer@apba-abi.org",
+      "name": "Dr. Charles APBA",
+      "role": "organizer",
+      "institution": "APBA Secretariat / African Breeding Institute (ABI)",
+      "country": "South Africa",
+      "cropFocus": "All Crops",
+      "rLevel": "Advanced",
+      "pythonLevel": "Advanced",
+      "unixLevel": "Advanced",
+      "readinessScore": 100,
+      "createdAt": "2026-06-23T21:06:36.188Z"
+    }
+  ],
+  "modules": [
+    {
+      "id": "mod_1",
+      "title": "Experimental Design & Phenology",
+      "sequence": 1,
+      "description": "Learn spatial control, augmented block layouts, and data cleanup in field phenotyping trials.",
+      "lectureUrl": "https://www.youtube.com/embed/sAOykZv78Zk",
+      "lectureUrls": [
+        "https://www.youtube.com/embed/sAOykZv78Zk",
+        "https://www.youtube.com/embed/ibApnjV_1wU"
+      ],
+      "slidesUrl": "https://www.scribbr.com/methodology/experimental-design/",
+      "readList": [
+        "Walsh & Lynch (1998) Genetics and Analysis of Quantitative Traits - Chapters 1-3",
+        "Federer, W.T. (1956) Augmented (indigenous) designs (https://www.researchgate.net/publication/23544321_Augmented_indigenous_designs)",
+        "Scribbr Academic Guide: Introduction to Experimental Design (https://www.scribbr.com/methodology/experimental-design/)"
+      ],
+      "exerciseNotebookUrl": "Experimental_Design_Pre_Exercise.ipynb",
+      "status": "completed",
+      "progressPercent": 100,
+      "notebookCells": [
+        {
+          "id": "m1_c1",
+          "type": "markdown",
+          "content": "# Pre-Exercise 1: Augmented Block Design Analysis\nThis exercise will teach you how to analyze an augmented randomized block design, common in breeding programs where seeds for new lines are highly limited and cannot be duplicated."
+        },
+        {
+          "id": "m1_c2",
+          "type": "code",
+          "content": "# Import necessary R libraries\nlibrary(survival)\nlibrary(lme4)\n# Create mockup dataset for 10 checks and 40 test entries\nset.seed(42)\nchecks_data <- data.frame(\n  Block = rep(1:4, each=3),\n  Entry = rep(paste(\"Check\", 1:3), 4),\n  Yield = rnorm(12, mean=45, sd=4.2),\n  IsCheck = TRUE\n)\ntest_data <- data.frame(\n  Block = rep(1:4, each=10),\n  Entry = paste(\"Entry\", 1:40),\n  Yield = rnorm(40, mean=42, sd=5.5) + rep(c(-2, 1, 3, -1), each=10),\n  IsCheck = FALSE\n)\ndataset <- rbind(checks_data, test_data)\nhead(dataset, n=12)"
+        },
+        {
+          "id": "m1_c3",
+          "type": "code",
+          "content": "# Run simple mixed model to compute Best Linear Unbiased Estimates (BLUEs)\nmodel = lmer(Yield ~ Entry + (1|Block), data=dataset)\ncat(\"Augmented model convergence successful! \\nBLUEs generated for 40 test entrants.\")"
+        }
+      ]
+    },
+    {
+      "id": "mod_2",
+      "title": "Quantitative Genetics & Association Mapping",
+      "sequence": 2,
+      "description": "Link genomic variants to phenotypes. Understand genetic correlations, kinship calculations, and linear models.",
+      "lectureUrl": "https://www.youtube.com/embed/FN7EKo0T524",
+      "lectureUrls": [
+        "https://www.youtube.com/embed/FN7EKo0T524",
+        "https://www.youtube.com/embed/8ZR1_umGFe8"
+      ],
+      "slidesUrl": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6431252/",
+      "readList": [
+        "Yu et al. (2006) A unified mixed-model method for association mapping (https://www.nature.com/articles/ng1702)",
+        "Price et al. (2006) Principal components analysis corrects for stratification in GWAS (https://pubmed.ncbi.nlm.nih.gov/16862161/)",
+        "NIH PMC Review: Quantitative Genetics in the Era of High-Throughput Phenotyping & Genotyping (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6431252/)"
+      ],
+      "exerciseNotebookUrl": "QuantGentics_Kinship_Pre_Exercise.ipynb",
+      "status": "completed",
+      "progressPercent": 100,
+      "notebookCells": [
+        {
+          "id": "m2_c1",
+          "type": "markdown",
+          "content": "# Pre-Exercise 2: Calculating Genomic Relationship Matrix (Kinship)\nIn this exercise, we compute a baseline realized kinship matrix (A-matrix) using simulated SNP markers."
+        },
+        {
+          "id": "m2_c2",
+          "type": "code",
+          "content": "# Step 1: Simulate genotyping matrix (SNP matrix: 0, 1, 2 representing reference alleles)\nset.seed(123)\nn_samples <- 50\nn_markers <- 100\nM <- matrix(sample(0:2, n_samples * n_markers, replace=TRUE), nrow=n_samples)\nrownames(M) <- paste(\"Sample\", 1:n_samples)\ncolnames(M) <- paste(\"SNP_Marker\", 1:n_markers)\n\n# Step 2: Display Genotype matrix subset\nM[1:6, 1:8]"
+        },
+        {
+          "id": "m2_c3",
+          "type": "code",
+          "content": "# Compute kinship matrix G using VanRaden framework (2008)\np <- colMeans(M) / 2\nP <- matrix(rep(2 * p, each = n_samples), nrow = n_samples)\nZ <- (M - P)\ndenominator <- 2 * sum(p * (1 - p))\nG <- (Z %*% t(Z)) / denominator\ndiag(G)[1:5] # Display diagonal entries (self-relatedness)"
+        }
+      ]
+    },
+    {
+      "id": "mod_3",
+      "title": "Practical GWAS Pipelines",
+      "sequence": 3,
+      "description": "Execute end-to-end GWAS mapping on breeder datasets. Interpret Manhattan plots and identify significant candidate genes.",
+      "lectureUrl": "https://www.youtube.com/embed/9yt7Y8KQMGA",
+      "lectureUrls": [
+        "https://www.youtube.com/embed/9yt7Y8KQMGA",
+        "https://www.youtube.com/embed/nrbgly0Bcv8",
+        "https://www.youtube.com/embed/PaFPbb66DxQ"
+      ],
+      "slidesUrl": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6822637/",
+      "readList": [
+        "Lipka et al. (2012) GAPIT: genome association and prediction integrated tool (https://pubmed.ncbi.nlm.nih.gov/22796954/)",
+        "Zhou & Stephens (2012) GEMMA: Genome-wide efficient mixed-model association (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3384594/)",
+        "NIH PMC Tutorial: A Guide to Conducting Genome-Wide Association Studies (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6822637/)"
+      ],
+      "exerciseNotebookUrl": "GWAS_Pipeline_StepByStep.ipynb",
+      "status": "completed",
+      "progressPercent": 100,
+      "notebookCells": [
+        {
+          "id": "m3_c1",
+          "type": "markdown",
+          "content": "# Exercise 3: GWAS on Wheat Drought Tolerances\nLoading your filtered VCF genotypes along with the drought-responsive phenotypes to initiate EMMAX analysis."
+        }
+      ]
+    },
+    {
+      "id": "mod_4",
+      "title": "Machine Learning in Agriculture",
+      "sequence": 4,
+      "description": "Deploy Random Forests, gradient boosting (XGBoost), and deep learning to model agronomic features and complex GxE interactions.",
+      "lectureUrl": "https://www.youtube.com/embed/QHMBx8P_Cnk",
+      "lectureUrls": [
+        "https://www.youtube.com/embed/QHMBx8P_Cnk",
+        "https://www.youtube.com/embed/uyDfWIbNFWo",
+        "https://www.youtube.com/embed/4n3iSxfXM3g"
+      ],
+      "slidesUrl": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8242082/",
+      "readList": [
+        "Howard et al. (2014) Robustness of ML for genomic prediction (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3931566/)",
+        "Crossa et al. (2017) Genomic selection in plant breeding: methods, models, and perspectives (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5523933/)",
+        "Frontiers in Plant Science: Machine Learning in Plant Breeding (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8242082/)"
+      ],
+      "exerciseNotebookUrl": "ML_Agriculture_Predictions.ipynb",
+      "status": "completed",
+      "progressPercent": 100,
+      "notebookCells": [
+        {
+          "id": "m4_c1",
+          "type": "markdown",
+          "content": "# Exercise 4: Random Forest for Breeding Value Classification\nLet's use random forest regression to predict grain yields based on dynamic crop reflectance traits."
+        }
+      ]
+    },
+    {
+      "id": "mod_5",
+      "title": "Genomic Selection & Breeding value Prediction",
+      "sequence": 5,
+      "description": "Learn rrBLUP, GBLUP, and genomic ranking metrics. Predict performance of unphenotyped segregating offspring to accelerate selection cycles.",
+      "lectureUrl": "https://www.youtube.com/embed/VwFnWTcGrZU",
+      "lectureUrls": [
+        "https://www.youtube.com/embed/VwFnWTcGrZU"
+      ],
+      "slidesUrl": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5829110/",
+      "readList": [
+        "Meuwissen et al. (2001) Prediction of total genetic value using dense marker maps (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1461589/)",
+        "Endelman, J.B. (2011) Ridge regression with R package rrBLUP (https://onlinelibrary.wiley.com/doi/abs/10.3835/plantgenome2011.08.0024)",
+        "Frontiers Review: Genomic Selection in Plant Breeding (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5829110/)"
+      ],
+      "exerciseNotebookUrl": "Genomic_Selection_rrBLUP.ipynb",
+      "status": "unlocked",
+      "progressPercent": 0,
+      "notebookCells": [
+        {
+          "id": "m5_c1",
+          "type": "markdown",
+          "content": "# Exercise 5: Single and Multi-environment Genomic Selection\nCalculate genomic breeding values (GEBVs) and practice five-fold cross-validation."
+        }
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "id": "wf_gwas",
+      "name": "GWAS EMMAX & GEMMA Pipe",
+      "description": "Calculates principal components, builds relationship/kinship matrices, runs mixed linear models, and formats significant locus candidates into Manhattan plots.",
+      "category": "GWAS",
+      "dockerImage": "mbhewoo/hackathon-env:2026",
+      "sampleDataUrl": "wheat_drought_panel.vcf.gz",
+      "readmeUrl": "GWAS_README.md",
+      "status": "stable",
+      "durationSec": 15
+    },
+    {
+      "id": "wf_gs",
+      "name": "Genomic Selection rrBLUP Engine",
+      "description": "Calibrates Ridge Regression Best Linear Unbiased Prediction model across multiple environmental subsets and computes validation prediction accuracies.",
+      "category": "Genomic Selection",
+      "dockerImage": "mbhewoo/hackathon-env:2026",
+      "sampleDataUrl": "wheat_phenotypes.csv",
+      "readmeUrl": "GS_README.md",
+      "status": "stable",
+      "durationSec": 18
+    },
+    {
+      "id": "wf_pop",
+      "name": "Population Structure (Admixture + PCA)",
+      "description": "Runs linkage disequilibrium (LD) pruning, spawns fastSTRUCTURE-like Ancestry Matrix (K=2 to K=6), and maps primary clusters into PCA space.",
+      "category": "Population Structure",
+      "dockerImage": "mbhewoo/hackathon-env:2026",
+      "sampleDataUrl": "wheat_drought_panel.vcf.gz",
+      "readmeUrl": "POP_README.md",
+      "status": "stable",
+      "durationSec": 12
+    }
+  ],
+  "helpTickets": [
+    {
+      "id": "tk_1",
+      "userId": "amina_e",
+      "userName": "Amina Edossa",
+      "userInstitution": "EIAR",
+      "category": "analysis",
+      "description": "I am trying to run GEMMA using my Durum Wheat crop matrix but keep getting a singular matrix warning when constructing kinship. I have 198 samples and 45k SNPs. Is this caused by high sample missingness (some test rows are missing >20% values)?",
+      "status": "open",
+      "createdAt": "2026-06-23T19:06:36.188Z",
+      "comments": [
+        {
+          "id": "com_1",
+          "userId": "osei_abi",
+          "userName": "Dr. Osei Koffi",
+          "userRole": "mentor",
+          "text": "Hi Amina, yes! High missingness causes issues inside GEMMA's relationship matrix calculation. Please check your data upload QC dashboard, apply the recommended missingness filter (threshold to <10%), re-download the cleaned VCF export, and retry. It should solve the matrix singularities.",
+          "createdAt": "2026-06-23T19:36:36.188Z"
+        }
+      ]
+    },
+    {
+      "id": "tk_2",
+      "userId": "john_k",
+      "userName": "John Kamau",
+      "userInstitution": "IITA",
+      "category": "setup",
+      "description": "I cannot get Docker to spin up on my Windows machine. 'docker: command not found' inside raw PowerShell. I downloaded Docker Desktop. Do I need to enable WSL2 kernel integration manually?",
+      "status": "open",
+      "createdAt": "2026-06-23T16:06:36.188Z",
+      "comments": [
+        {
+          "id": "com_2",
+          "userId": "osei_abi",
+          "userName": "Dr. Osei Koffi",
+          "userRole": "mentor",
+          "text": "Hello John, make sure you start Docker Desktop first. Also inside Docker Desktop Settings, go to General and check 'Use the WSL 2 based engine'. Then reboot your powershell terminal.",
+          "createdAt": "2026-06-23T17:06:36.188Z"
+        }
+      ]
+    },
+    {
+      "id": "tk_3",
+      "userId": "sarah_m",
+      "userName": "Sarah Mwangi",
+      "userInstitution": "ICRISAT",
+      "category": "data",
+      "description": "How strictly should phenotype column naming match the expected template for the Genomic Selection runner? The runner expects 'Env' and 'Yield_kg_ha' but my column is named 'Yield_KG_HECTARE' with some missing NA cells.",
+      "status": "resolved",
+      "createdAt": "2026-06-23T01:06:36.188Z",
+      "resolvedAt": "2026-06-23T03:06:36.188Z",
+      "comments": [
+        {
+          "id": "com_3",
+          "userId": "osei_abi",
+          "userName": "Dr. Osei Koffi",
+          "userRole": "mentor",
+          "text": "Hi Sarah! Yes, the companion model parses column headers literally. I added a mapping resolver so you can rename it during dataset configuration, or you can use the interactive fix button inside our validation screen to auto-format it.",
+          "createdAt": "2026-06-23T02:06:36.188Z"
+        }
+      ]
+    }
+  ],
+  "runs": [],
+  "uploads": [],
+  "showcases": [
+    {
+      "id": "proj_1",
+      "userId": "sarah_m",
+      "ownerName": "Sarah Mwangi",
+      "institution": "ICRISAT",
+      "cropFocus": "Chickpea Heat Resilience",
+      "title": "Identifying Heat Tolerance Genomic Regions in Sahelian Chickpeas",
+      "description": "Conducted GWAS mapping across 500 dryland check lines. Discovered three significant SNP nodes on Chromosome 4 associated with robust biomass production under ambient heat conditions.",
+      "showcaseStatus": true,
+      "doi": "10.5281/zenodo.10824823",
+      "publicationsMapped": [
+        "Sahelian Chickpea Panel GWAS (Preprint draft)",
+        "APBA Abstract Submission: Oct 2026"
+      ],
+      "createdAt": "2026-06-23T11:06:36.188Z"
+    }
+  ]
+}
